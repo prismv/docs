@@ -116,6 +116,6 @@ github_test: publish
 github_publ: publish
 	ghp-import -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) -r git@github.com:raprism/raprism.github.io.git $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
-	# pull request instead of: git push git@github.com:raprism/raprism.github.io.git $(GITHUB_PAGES_BRANCH):$(GITHUB_PAGES_BRANCH)
+	git push git@github.com:prismv/raprism.github.io.git $(GITHUB_PAGES_BRANCH):origin/master
 
 .PHONY: html help clean regenerate serve devserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload cf_upload github_test github_publ
