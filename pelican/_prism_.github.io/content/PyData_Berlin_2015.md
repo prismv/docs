@@ -1,6 +1,6 @@
 Title: PyData Berlin 2015
-Date: 2015-05-30 00:00:00
-Modified: 2015-05-31 00:00:00
+Date: 2015-06-18 00:00:00
+Modified: 2015-06-19 00:00:00
 Category: python
 Tags: python, data, berlin, pydata
 Slug: PyDataBerlin2015

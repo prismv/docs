@@ -53,7 +53,8 @@ help:
 	@echo '   make ftp_upload                  upload the web site via FTP        '
 	@echo '   make s3_upload                   upload the web site via S3         '
 	@echo '   make cf_upload                   upload the web site via Cloud Files'
-	@echo '   make github                      upload the web site via gh-pages   '
+	@echo '   make github_test                 upload the web site via gh-pages   '
+	@echo '   make github_publ                 upload the web site via gh-pages   '
 	@echo '                                                                       '
 	@echo 'Set the DEBUG variable to 1 to enable debugging, e.g. make DEBUG=1 html'
 	@echo '                                                                       '
@@ -107,9 +108,14 @@ s3_upload: publish
 cf_upload: publish
 	cd $(OUTPUTDIR) && swift -v -A https://auth.api.rackspacecloud.com/v1.0 -U $(CLOUDFILES_USERNAME) -K $(CLOUDFILES_API_KEY) upload -c $(CLOUDFILES_CONTAINER) .
 
-github: publish
+github_test: publish
 	ghp-import -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) -r git@github.com:prismv/prismv.github.io.git $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
 	git push git@github.com:prismv/prismv.github.io.git $(GITHUB_PAGES_BRANCH):$(GITHUB_PAGES_BRANCH)
 
-.PHONY: html help clean regenerate serve devserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload cf_upload github
+github_publ: publish
+	ghp-import -m "Generate Pelican site" -b $(GITHUB_PAGES_BRANCH) -r git@github.com:raprism/raprism.github.io.git $(OUTPUTDIR)
+	git push origin $(GITHUB_PAGES_BRANCH)
+	# pull request instead of: git push git@github.com:raprism/raprism.github.io.git $(GITHUB_PAGES_BRANCH):$(GITHUB_PAGES_BRANCH)
+
+.PHONY: html help clean regenerate serve devserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload cf_upload github_test github_publ
